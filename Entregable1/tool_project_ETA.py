@@ -18,6 +18,11 @@ from PIL import Image
 
 
 def mover_imagenes(origen, destino):
+    #cargando boundaries:
+    ruta_boundaries = '{}/{}'.format('utils','mask_img.png')
+    boundaries = cv2.imread(ruta_boundaries)
+    new_boundaries = binarize_and_transform_cv(boundaries, threshold=240)
+    
     # Obtener una lista de todas las imágenes en la carpeta de origen
     imagenes = [f for f in os.listdir(origen) if os.path.isfile(os.path.join(origen, f)) and f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif'))]
     
@@ -31,6 +36,7 @@ def mover_imagenes(origen, destino):
         now = datetime.datetime.now()
         new_name = now.strftime('%Y-%m-%d %H-%M-%S')
         #nuevo_nombre = f"{new_name}{extension}"
+        ruta_database = os.path.dirname(destino)
         if extension =='.gif':
             # abrir el archivo GIF con Pillow
             ruta_archivo_gif = os.path.join(origen, imagen)
@@ -39,7 +45,7 @@ def mover_imagenes(origen, destino):
             # obtener la ruta de salida para el archivo PNG
             name_png = new_name+ '.png'
             
-            ruta_database = os.path.dirname(destino)
+            
             ruta_archivo_png_cache = os.path.join(ruta_database, 'cache', name_png)
             borrar_y_crear_carpeta(os.path.join(ruta_database, 'cache'))
             imagen_gif.save(ruta_archivo_png_cache, 'PNG')
@@ -47,13 +53,16 @@ def mover_imagenes(origen, destino):
             imagen_gif.close()
             
             img = cv2.imread(ruta_archivo_png_cache)
-            
-            
+                      
             ruta_data = tipo_img(img)
+           
             new_destino = os.path.join(ruta_database, ruta_data)
             
             shutil.move(ruta_archivo_png_cache , os.path.join(new_destino, name_png))
             
+            #colocando los boundaries de los departamentos
+            new_img = multiply_images(img, new_boundaries)
+            cv2.imwrite( os.path.join(new_destino, name_png), new_img)
            
             
             time.sleep(1)
@@ -72,6 +81,9 @@ def mover_imagenes(origen, destino):
             new_destino = os.path.join(ruta_database, ruta_data)
             # Mover la imagen a la carpeta de destino con el nuevo nombre (si es necesario)
             shutil.move(os.path.join(origen, imagen), os.path.join(new_destino, nuevo_nombre))
+            
+            new_img = multiply_images(img, new_boundaries)
+            cv2.imwrite( os.path.join(new_destino, nuevo_nombre), new_img)
             '''
             if np.mean(imagen[:,:,0]) and  
             if obtener_ultimo_elemento(destino) not in '_hydro':
@@ -261,6 +273,41 @@ def begin_url(path_driver, url):
     driver.get(url)
     
     return driver
+
+
+'''
+boundaries
+'''
+def binarize_and_transform_cv(img, threshold=240):
+    # Cargamos la imagen
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # Leemos en escala de grises
+
+    # Binarizamos la imagen con el threshold proporcionado
+    _, data = cv2.threshold(img, threshold, 1, cv2.THRESH_BINARY)
+
+    # Creamos un array nuevo con la misma forma que data pero con 3 canales
+    new_data = np.zeros((*data.shape, 3), dtype=np.uint8)
+    
+    # Asignamos [1,1,1] a los píxeles que eran mayores que threshold y [0,0,0] a los demás
+    new_data[data == 1] = [1,1,1]
+    new_data[data == 0] = [0,0,0]
+    
+    return new_data
+
+
+def multiply_images(img1, img2):
+    
+    # Redimensionamos la segunda imagen al tamaño de la primera
+    img2_resized = cv2.resize(img2, (img1.shape[1], img1.shape[0]))
+    
+    # Multiplicamos las imágenes. Para evitar overflow, primero las convertimos a float32
+    multiplied = cv2.multiply(img1.astype(float), img2_resized.astype(float))
+
+    # Normalizamos los valores al rango original [0,255]
+    normalized = cv2.normalize(multiplied, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
+
+    return normalized
+
 
 
 '''
