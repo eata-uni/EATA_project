@@ -24,15 +24,15 @@ import cv2
 url = "https://re.ssec.wisc.edu/?products=G16-ABI-FD-BAND02.100,G16-ABI-FD-BAND13.65&center=36.62792196407514,-94.74951171874999&zoom=4&width=949&height=776&timeproduct=G16-ABI-FD-BAND13&timespan=-6t&animationspeed=50&labels=lines"
 path_driver = r"C:\Users\Lucas\Desktop\project_EATA_Lucas\driver_chrome\chromedriver.exe"
 
-origen = r'C:\Users\Lucas\Downloads'
-destino = r'C:\Users\Lucas\project_EATA_Lucas\Entregable1\Database'
-destino_hydro = r'C:\Users\Lucas\project_EATA_Lucas\Entregable1\Database_hydro'
+origen = r'C:\Users\Juan Palacios\Downloads'
+destino = r'C:\Users\Juan Palacios\project_EATA_Lucas\Entregable1\Database'
+destino_hydro = r'C:\Juan Palacios\Lucas\project_EATA_Lucas\Entregable1\Database_hydro'
 
-ruta_clouds_mask = r'C:\Users\Lucas\project_EATA_Lucas\Entregable1\clouds_mask'
-ruta_departamentos_mask = r'C:\Users\Lucas\project_EATA_Lucas\Entregable1\mask_dep'
+ruta_clouds_mask = r'C:\Users\Juan Palacios\project_EATA_Lucas\Entregable1\clouds_mask'
+ruta_departamentos_mask = r'C:\Users\Juan Palacios\project_EATA_Lucas\Entregable1\mask_dep'
 
-informe_cloud = r'C:\Users\Lucas\project_EATA_Lucas\Entregable1\Informe_cloud'
-informe_hydro = r'C:\Users\Lucas\project_EATA_Lucas\Entregable1\Informe_hydro'
+informe_cloud = r'C:\Users\Juan Palacios\project_EATA_Lucas\Entregable1\Informe_cloud'
+informe_hydro = r'C:\Users\Juan Palacios\project_EATA_Lucas\Entregable1\Informe_hydro'
 
 #Ingrese el tiempo de espera
 wait_time = 10 #son 10 min
