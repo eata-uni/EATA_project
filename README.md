@@ -1,2 +1,4 @@
 # EATA_project
-This project aims to develop an advanced precipitation detection and forecasting system using artificial intelligence and remote sensing techniques. Leveraging data from meteorological satellites and online data sources, this system will provide forecasts and updates on precipitation in specific areas of interest.
+As a consequence of cyclone Yaku and the disasters that occurred in several regions of Peru, UNI's Center for Information and Communication Technologies (CTIC) launched the EATA project, which seeks to alert citizens about possible meteorological phenomena throughout the country. Its main objective is to develop an artificial intelligence model to prevent natural disasters related to weather events. This initiative seeks to use technology to provide protection and security to the population in emergency situations.
+
+## First phase
