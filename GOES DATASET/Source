@@ -1,1 +1,10 @@
-
+Libraries used for GOES DATASET
+  1-time
+  2-os
+  3-re
+  4-geospy.Downloader
+  5-xarray
+  6-pytz
+  7-geopandas
+  8-shapely
+  9-cartopy
