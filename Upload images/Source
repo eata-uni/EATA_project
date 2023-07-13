@@ -1,6 +1,0 @@
-Libraries used for Upload Images Automatic
-  1-time
-  2-os
-  3-watchdog.events
-  4-watchdog.observers
-  5-pydrive2.auth
