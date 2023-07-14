@@ -44,7 +44,7 @@ wait_time = 10 #son 10 min
 #Tiempo para acabar la ejecucion del programa
 stop_time = 40000000
 
-treshold = 50
+treshold = 10
 
 cont_time = 0
 bool_stop = True

@@ -89,7 +89,7 @@ def mover_imagenes(origen, destino):
                 
             else:
             '''
-            
+
 def borrar_y_crear_carpeta(ruta_carpeta):
     # Comprobar si la carpeta existe
     if os.path.exists(ruta_carpeta):
@@ -103,11 +103,11 @@ def borrar_y_crear_carpeta(ruta_carpeta):
         os.makedirs(ruta_carpeta)
         
 def tipo_img(img):
-    B = np.mean(img[:,:,0])
-    G = np.mean(img[:,:,1])
-    R = np.mean(img[:,:,2])
+    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    _, img_gray = cv2.threshold(img_gray, 250, 255, cv2.THRESH_BINARY)
     
-    if B < 200 or G < 200 or R < 200:
+    mean_color = np.mean(img_gray)
+    if mean_color < 100:
         ruta_data = 'Database'
     else:
         ruta_data = 'Database_hydro'
@@ -164,7 +164,7 @@ def login(driver):
     
     elemento = driver.find_element(By.XPATH,"//*[@id='RE_button_login']")
     elemento.click()
-    time.sleep(5)
+    time.sleep(1)
     
     
     elemento = driver.find_element(By.XPATH,"//*[@id='user_name']")
@@ -179,7 +179,7 @@ def login(driver):
     
     elemento = driver.find_element(By.XPATH,"//*[@id='login_user']/span[2]")
     elemento.click()
-    time.sleep(1)
+    time.sleep(3)
     
     
 def load_image(driver, hydro = False):
@@ -188,18 +188,20 @@ def load_image(driver, hydro = False):
     time.sleep(1)
     
     if hydro:
+        #52
         elemento = driver.find_element(By.XPATH, "//*[@id='ui-accordion-RE_categories-header-52']")
         elemento.click()
-        time.sleep(3)
+        time.sleep(1)
         
         elemento = driver.find_element(By.XPATH,"//*[@id='ui-accordion-RE_categories-panel-52']/div[1]/div[1]/span[1]")
         elemento.click()
         time.sleep(1)
         
     else:
+        
         elemento = driver.find_element(By.CSS_SELECTOR, 'h3#ui-accordion-RE_categories-header-22')
         elemento.click()
-        time.sleep(3)
+        time.sleep(1)
         
         elemento = driver.find_element(By.XPATH,"//*[@id='ui-accordion-RE_categories-panel-22']/div[10]/div[1]/span[1]")
         elemento.click()
@@ -252,7 +254,7 @@ def dowload_product(driver, origen, destino, product = 'cloud'):
     move_display(driver)
     #logearse en la pagina
     login(driver)
-    time.sleep(20)
+
     #Carga la imagen con la pagina
     if product == 'cloud':
         load_image(driver)
@@ -319,7 +321,7 @@ def extractor_clouds(img):
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
     # Definir rangos de color para el blanco y el verde en el espacio de color HSV
-    green_lower = np.array([50, 30, 30])
+    green_lower = np.array([45, 30, 30])
     green_upper = np.array([70, 255, 255])
 
     # Crear máscaras para los rangos de color
@@ -372,22 +374,30 @@ def generator_cloud_mask(ruta_origen, ruta_destino):
 
     return cloud_mask_aux , img, name_img
 
+
 def extractor_precipitation(image):
 
     # Convertir la imagen de RGB a HSV
-    hsv_image = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
+    hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
     # Definir el rango de colores para el rojo y morado en HSV
     # Nota: el rango de valores para HSV en OpenCV es [0, 179] para Hue y [0, 255] para Saturation y Value
-    lower_red = np.array([0, 100, 100])
-    upper_red = np.array([25, 255, 255])
+    lower_red1 = np.array([0, 100, 100])
+    upper_red1 = np.array([20, 255, 255])
 
-    lower_purple = np.array([125, 100, 100])
-    upper_purple = np.array([150, 255, 255])
+    lower_red2 = np.array([170, 100, 100])
+    upper_red2 = np.array([179, 255, 255])
+
+    lower_purple = np.array([130, 150, 100])
+    upper_purple = np.array([140, 255, 255])
 
     # Generar las máscaras
-    red_mask = cv2.inRange(hsv_image, lower_red, upper_red)
+    red_mask1 = cv2.inRange(hsv_image, lower_red1, upper_red1)
+    red_mask2 = cv2.inRange(hsv_image, lower_red2, upper_red2)
     purple_mask = cv2.inRange(hsv_image, lower_purple, upper_purple)
+
+    # Combinar las máscaras de rojo en una única máscara de rojo
+    red_mask = cv2.bitwise_or(red_mask1, red_mask2)
 
     # Devolver las máscaras
     return red_mask, purple_mask
@@ -407,8 +417,8 @@ def generator_precipitation_mask(ruta_origen, ruta_destino):
     precipitation_mask_red = cv2.cvtColor(precipitation_mask_red, cv2.COLOR_GRAY2RGB)
     precipitation_mask_purple = cv2.cvtColor(precipitation_mask_purple, cv2.COLOR_GRAY2RGB)
     
-    ruta_destino_rojo = '{}/{}'.format(ruta_destino , 'rojo' )
-    ruta_destino_purple = '{}/{}'.format(ruta_destino, 'morado')
+    ruta_destino_rojo = os.path.join(ruta_destino , 'rojo' )
+    ruta_destino_purple = os.path.join(ruta_destino, 'morado')
     
     cv2.imwrite(os.path.join(ruta_destino_purple, name_img), precipitation_mask_purple)
     cv2.imwrite(os.path.join(ruta_destino_rojo, name_img), precipitation_mask_red)
@@ -488,7 +498,7 @@ def etiquetar_resultados(resultados, imagen_rgb):
         imagen_rgb = cv2.drawContours(imagen_rgb, resultado['contorno_img'], -1, (255, 0, 255), 2)
         
         # Dibujar el contorno de las zonas con nubes de lluvia
-        imagen_rgb = cv2.drawContours(imagen_rgb, resultado['contorno_inter'], -1, (0, 0, 255), 2)
+        imagen_rgb = cv2.drawContours(imagen_rgb, resultado['contorno_inter'], -1, (0, 0, 255), 1)
         
         # Etiquetar la región roja con el nombre de la imagen
         '''
@@ -523,7 +533,7 @@ def etiquetar_resultados_hydro(resultados_red, resultados_purple, imagen_rgb):
         imagen_rgb = cv2.drawContours(imagen_rgb, resultado['contorno_img'], -1, (255, 0, 255), 2)
         
         # Dibujar el contorno de las zonas con nubes de lluvia (cambiar a color rojo)
-        imagen_rgb = cv2.drawContours(imagen_rgb, resultado['contorno_inter'], -1, (0, 0, 255), 2)
+        imagen_rgb = cv2.drawContours(imagen_rgb, resultado['contorno_inter'], -1, (0, 0, 255), 1)
         
     # Verificar si el diccionario de resultados está vacío
     if not resultados_purple:
@@ -539,7 +549,7 @@ def etiquetar_resultados_hydro(resultados_red, resultados_purple, imagen_rgb):
         imagen_rgb = cv2.drawContours(imagen_rgb, resultado['contorno_img'], -1, (255, 0, 255), 2)
         
         # Dibujar el contorno de las zonas con nubes de lluvia (cambiar a color morado)
-        imagen_rgb = cv2.drawContours(imagen_rgb, resultado['contorno_inter'], -1, (128, 0, 128), 2)
+        imagen_rgb = cv2.drawContours(imagen_rgb, resultado['contorno_inter'], -1, (128, 0, 128), 1)
         
     return imagen_rgb
 
@@ -575,17 +585,15 @@ def deteccion_cloud(destino , ruta_clouds_mask, ruta_departamentos_mask, save_pa
     
 def deteccion_precipitation(destino , ruta_precipitation_mask, ruta_departamentos_mask, save_path, treshold):
    
-    ruta_destino_rojo = '{}/{}/{}'.format(save_path, ruta_departamentos_mask, 'rojo' )
-    ruta_destino_purple = '{}/{}/{}'.format(save_path, ruta_departamentos_mask, 'morado')
-   
+
     
     precipitation_mask_red, precipitation_mask_purple, imagen_rgb, name_img = generator_precipitation_mask(destino, ruta_precipitation_mask)
 
 
     #obtenemos departamentos con lluvia
-    array_lluvia_red = buscar_imagenes_interseccion(ruta_destino_rojo, precipitation_mask_red, treshold)    
+    array_lluvia_red = buscar_imagenes_interseccion(ruta_departamentos_mask, precipitation_mask_red, treshold)    
     #obtenemos departamentos con lluvia
-    array_lluvia_morado = buscar_imagenes_interseccion(ruta_destino_purple, precipitation_mask_purple, treshold)
+    array_lluvia_morado = buscar_imagenes_interseccion(ruta_departamentos_mask, precipitation_mask_purple, treshold)
     
     
     #obtenemos imagen con intersecciones localizadas
