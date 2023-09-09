@@ -1,4 +1,0 @@
-esta version hace la solicitud get a /get_images1 una vez
-y la va mostrando durante 10 minutos, despues de los 10 minutos hace denuevo
-una solicitud get a /get_images1 para obtener la lista actualizada de las imagenes
-asi se evita hacer demasiadas solicitudes a la base de datos.
