@@ -1,0 +1,20 @@
+
+
+.container path {
+    fill: rgb(136, 164, 188);
+    stroke: rgb(255, 255, 255);
+    stroke-width: 2px
+}
+
+.container :hover{
+    fill: #0782c5;
+}
+
+.custom-btn {
+    background-color: rgb(136, 164, 188);
+    /* Otros estilos si los necesitas */
+}
+.custom-btn:hover {
+    background-color: #0782c5;
+    /* Otros estilos para cuando pases el puntero */
+}

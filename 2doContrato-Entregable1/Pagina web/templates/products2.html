@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block title %} Productos {% endblock%}
+
+{% block contenido %}
+
+<header id="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 mt-5">
+    
+                <div class="header-text-one">
+                    <p class="h4 mt-2">Estimador de precipitación</p>
+                    <div class="header-icon-one">
+                        <img src="{{ url_for('static', filename='img/icon_product_one.png') }}" style="width: 100%;" alt="type1">
+                    </div>
+                    <p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sed sapiente odit est quasi, distinctio perspiciatis esse, asperiores facere neque culpa quo iure quia ut eum fugit doloremque pariatur placeat!</p>
+                    <a href="{{url_for('product_one')}}" class="btn btn-outline-secondary btn-ms mt-2 header-btn">Ver</a>
+                </div>
+                
+            </div>
+            <div class="col-md-3 mt-5">
+                
+                <div class="header-text-two">
+                    <p class="h4 mt-2">Incremento de vapor de agua</p>
+                    <div class="header-icon-two">
+                        <img src="{{ url_for('static', filename='img/icon_product_two.png') }}" style="width: 100%;" alt="type2">
+                    </div>
+                    <p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sed sapiente odit est quasi, distinctio perspiciatis esse, asperiores facere neque culpa quo iure quia ut eum fugit doloremque pariatur placeat!</p>
+                    <a href="{{url_for('product_two')}}" class="btn btn-outline-secondary btn-ms mt-2 header-btn">Ver</a>
+                </div>
+            </div>
+            <div class="col-md-3 mt-5">
+                
+                <div class="header-text-three">
+                    <p class="h4 mt-2">Altura de la base de la nube</p>
+                    <div class="header-icon-three">
+                        <img src="{{ url_for('static', filename='img/icon_product_three.png') }}" style="width: 100%;" alt="type3">
+                    </div>
+                    <p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sed sapiente odit est quasi, distinctio perspiciatis esse, asperiores facere neque culpa quo iure quia ut eum fugit doloremque pariatur placeat!</p>
+                    <a href="{{url_for('product_three')}}" class="btn btn-outline-secondary btn-ms mt-2 header-btn">Ver</a>
+                </div>
+            </div>
+            <div class="col-md-3 mt-5">
+                
+                <div class="header-text-four">
+                    <p class="h4 mt-2">Capas de nieve y nubes</p>
+                    <div class="header-icon-four">
+                        <img src="{{ url_for('static', filename='img/icon_product_four.png') }}" style="width: 100%;" alt="type4">
+                    </div>
+                    <p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sed sapiente odit est quasi, distinctio perspiciatis esse, asperiores facere neque culpa quo iure quia ut eum fugit doloremque pariatur placeat!</p>
+                    <a href="{{url_for('product_four')}}" class="btn btn-outline-secondary btn-ms mt-2 header-btn">Ver</a>
+                </div>
+            </div>
+        </div>
+
+        <!--- segunda fila -->
+        <div class="row">
+            <div class="col-md-3 mt-5">
+    
+                <div class="header-text-one">
+                    <p class="h4 mt-2">Producto 5</p>
+                    <div class="header-icon-one">
+                        <img src="{{ url_for('static', filename='img/icon_product_future.png') }}" style="width: 100%;" alt="type5">
+                    </div>
+                    <p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sed sapiente odit est quasi, distinctio perspiciatis esse, asperiores facere neque culpa quo iure quia ut eum fugit doloremque pariatur placeat!</p>
+                    <a href="{{url_for('product_five')}}" class="btn btn-outline-secondary btn-ms mt-2 header-btn">Ver</a>
+                </div>
+                
+            </div>
+            <div class="col-md-3 mt-5">
+                
+                <div class="header-text-two">
+                    <p class="h4 mt-2">Producto 6</p>
+                    <div class="header-icon-two">
+                        <img src="{{ url_for('static', filename='img/icon_product_future.png') }}" style="width: 100%;" alt="type6">
+                    </div>
+                    <p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sed sapiente odit est quasi, distinctio perspiciatis esse, asperiores facere neque culpa quo iure quia ut eum fugit doloremque pariatur placeat!</p>
+                    <a href="{{url_for('product_six')}}" class="btn btn-outline-secondary btn-ms mt-2 header-btn">Ver</a>
+                </div>
+            </div>
+            <div class="col-md-3 mt-5">
+                
+                <div class="header-text-three">
+                    <p class="h4 mt-2">Producto 7</p>
+                    <div class="header-icon-three">
+                        <img src="{{ url_for('static', filename='img/icon_product_future.png') }}" style="width: 100%;" alt="type7">
+                    </div>
+                    <p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sed sapiente odit est quasi, distinctio perspiciatis esse, asperiores facere neque culpa quo iure quia ut eum fugit doloremque pariatur placeat!</p>
+                    <a href="{{url_for('product_seven')}}" class="btn btn-outline-secondary btn-ms mt-2 header-btn">Ver</a>
+                </div>
+            </div>
+            <div class="col-md-3 mt-5">
+                
+                <div class="header-text-four">
+                    <p class="h4 mt-2">Producto 8</p>
+                    <div class="header-icon-four">
+                        <img src="{{ url_for('static', filename='img/icon_product_future.png') }}" style="width: 100%;" alt="type8">
+                    </div>
+                    <p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sed sapiente odit est quasi, distinctio perspiciatis esse, asperiores facere neque culpa quo iure quia ut eum fugit doloremque pariatur placeat!</p>
+                    <a href="{{url_for('product_eight')}}" class="btn btn-outline-secondary btn-ms mt-2 header-btn">Ver</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</header>
+
+{% endblock %}

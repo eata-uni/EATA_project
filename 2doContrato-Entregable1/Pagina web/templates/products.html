@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %} Productos {% endblock%}
+
+{% block contenido %}
+
+<header id="header">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <div class="header-icon-one">
+                    <img src="{{ url_for('static', filename='img/icon_product_one.png') }}" style="width: 100%;" alt="type1">
+                </div>
+            </div>
+            <div class="col-md-6 mt-5">
+                <div class="header-text-one">
+                    <h1 class="display-4">Estimador de precipitación.</h1>
+                    <p class="mt-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sed sapiente odit est quasi, distinctio perspiciatis esse, asperiores facere neque culpa quo iure quia ut eum fugit doloremque pariatur placeat!</p>
+                    <a href="{{url_for('product_one')}}" class="btn btn-outline-secondary btn-ms mt-2 header-btn">Read More</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <div class="header-icon-two">
+                    <img src="{{ url_for('static', filename='img/icon_product_two.png') }}" style="width: 100%;" alt="type2">
+                </div>
+            </div>
+            <div class="col-md-6 mt-5">
+                <div class="header-text-two">
+                    <h1 class="display-4">Incremento de vapor de agua.</h1>
+                    <p class="mt-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sed sapiente odit est quasi, distinctio perspiciatis esse, asperiores facere neque culpa quo iure quia ut eum fugit doloremque pariatur placeat!</p>
+                    <a href="#" class="btn btn-outline-secondary btn-ms mt-2 header-btn">Read More</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <div class="header-icon-three">
+                    <img src="{{ url_for('static', filename='img/icon_product_three.png') }}" style="width: 100%;" alt="type3">
+                </div>
+            </div>
+            <div class="col-md-6 mt-5">
+                <div class="header-text-three">
+                    <h1 class="display-4">Altura de la base de la nube.</h1>
+                    <p class="mt-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sed sapiente odit est quasi, distinctio perspiciatis esse, asperiores facere neque culpa quo iure quia ut eum fugit doloremque pariatur placeat!</p>
+                    <a href="#" class="btn btn-outline-secondary btn-ms mt-2 header-btn">Read More</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <div class="header-icon-four">
+                    <img src="{{ url_for('static', filename='img/icon_product_four.png') }}" style="width: 100%;" alt="type4">
+                </div>
+            </div>
+            <div class="col-md-6 mt-5">
+                <div class="header-text-four">
+                    <h1 class="display-4">Capas de nieve/nubes.</h1>
+                    <p class="mt-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sed sapiente odit est quasi, distinctio perspiciatis esse, asperiores facere neque culpa quo iure quia ut eum fugit doloremque pariatur placeat!</p>
+                    <a href="#" class="btn btn-outline-secondary btn-ms mt-2 header-btn">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% endblock %}
