@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %} Contáctanos {% endblock%}
+
+{% block contenido %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mt-5 bg-light">
+            <h2 class="text-center">Dirección</h2>
+            <h3 class="text-center">UNI, Puerta Nº 5, Rímac 15333</h3>
+        </div>
+        <div class="col-md-4 mt-5 bg-light">
+            <h2 class="text-center">Correo electrónico</h2>
+            <h3 class="text-center">eata.pe@uni.edu.pe</h3>
+        </div>
+        <div class="col-md-4 mt-5 bg-light">
+            <h2 class="text-center">Teléfono</h2>
+            <h3 class="text-center">+51 ---------</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mt-5 bg-light">
+            <div class="ubicacion">
+                <img src="{{ url_for('static', filename='img/ubicacion.png') }}" style="width: 100%;" alt="type1">
+            </div>
+        </div>
+    </div>
+</div>
+
+  
+{% endblock %}
