@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block title %} Product Four {% endblock%}
+
+{% block scripts_comentarios %}
+    <script>
+        $(document).ready(function() {
+            function updateTextarea() {
+                $.ajax({
+                    url: '/get_producto_cuatro',
+                    type: 'GET',
+                    success: function(response) {
+                        $('#producto-cuatro-textarea').val(response.value.fecha+':\n'+response.value.texto);
+                    }
+                });
+            }
+
+            // Actualizar el contenido del textarea al cargar la página
+            updateTextarea();
+            // Ejecutar updateTextarea cada 1 segundo
+            setInterval(updateTextarea, 600000);
+            // Escuchar cambios en tiempo real usando Firebase SDK
+            var dbRef = firebase.database().ref('/comentarios/producto_cuatro');
+            dbRef.on('value', function(snapshot) {
+                var newValue = snapshot.val();
+                $('#producto-cuatro-textarea').val(newValue);
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block scripts_mostrarimagenes %}
+<script>
+    function updateImages() {
+        $.get('/get_images4', function(data) {
+            var imageUrls = data.image_urls;
+            var currentIndex = 0;
+
+            function displayImage() {
+                var imageUrl = imageUrls[currentIndex];
+                $('#current-image').attr('src', imageUrl);
+                $('#image-name').text(getImageName(imageUrl));
+
+                if (currentIndex === imageUrls.length - 1) {
+                    clearInterval(intervalId);
+                    setTimeout(function() {
+                        updateImages();
+                    }, 1000);
+                } else {
+                    currentIndex++;
+                }
+            }
+
+            displayImage();
+            var intervalId = setInterval(displayImage, 1000);
+        });
+    }
+
+    function getImageName(imageUrl) {
+        var imageName = imageUrl.split('/').pop().split('.')[0];
+        imageName = imageName.replace(/%20/g, ' '); // Reemplazar "%20" por espacio
+        return imageName;
+    }
+
+    $(document).ready(function() {
+        updateImages();
+    });
+</script>
+{% endblock %}
+
+{% block contenido%}
+<div class="container">
+    <p class="h2 pt-5 text-center">Capas de nieve/nubes</p>
+    <div class="row">
+        <div class="col-md-7 mt-5">
+            <p class="h5">Fecha y hora de la imagen: </p>
+            <div class="header-icon-one">
+                <!--<img src="{{ url_for('static', filename='img/icon_product_one.png') }}" style="width: 100%;" alt="type1">-->
+                <h1 class="h3" id="image-name"></h1>
+                <!--<img id="current-image"  style="width: 100%;" alt="type1">-->
+                <img  id="current-image"  style="width: 80%;" alt="type1">
+            </div>
+        </div>
+        <div class="col-md-5 mt-5">
+            <p class="h5">Comentarios en vivo</p>
+            <div class="header-text-one ">
+               <!--<textarea name="" id="messages" cols="30" rows="10" style="width: 100%;" readonly></textarea>>-->
+               <textarea class="form-control my-auto" id="producto-cuatro-textarea" rows="10" cols="50" readonly style="resize: none;"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
