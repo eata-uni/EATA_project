@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title%} {{title_product}} / {{department_name}} {% endblock%}
+
+{% block contenido%}
+
+    <label for="enlaces">Selecciona un enlace:</label>
+    <select id="enlaces">
+        <option value="#">Selecciona un enlace</option>
+        <option value="https://www.ejemplo1.com">Enlace 1</option>
+        <option value="https://www.ejemplo2.com">Enlace 2</option>
+        <option value="https://www.ejemplo3.com">Enlace 3</option>
+        <!-- Agrega más opciones con sus respectivos enlaces -->
+    </select>
+
+    <button onclick="irAEnlace()">Ir al Enlace</button>
+
+    <script>
+        function irAEnlace() {
+            var seleccionado = document.getElementById("enlaces");
+            var enlace = seleccionado.value;
+            if (enlace !== "#") {
+                window.location.href = enlace;
+            }
+        }
+    </script>
+
+
+{% endblock %}
